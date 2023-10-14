@@ -29,6 +29,7 @@
         }
 
         #title {
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
             text-align: center;
             width: 70vw;
             line-height: 1em;
@@ -36,12 +37,12 @@
             white-space: nowrap;
             overflow: hidden;
             direction: rtl;
-            height: 1em;
+            height: 2em;
             top: 4vh;
             font-size: 5vh;
             position: absolute;
             content: attr(data-title);
-            color: white;
+            color: rgba(255, 255, 255, 0.9);;
         }
 
         #box {
@@ -73,6 +74,12 @@
             display: block;
             transition: .3s;
             cursor: default;
+        }
+
+        #box :not(a[download]) {
+            margin-left: -5vw;
+            font-weight: bold;
+            font-style: italic;
         }
 
         #box a::before {
