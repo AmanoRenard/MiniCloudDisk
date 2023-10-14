@@ -12,26 +12,28 @@ if not (init_index := root_path / ".initindex").exists():
     sys.exit(0)
 with open(init_index, "r", encoding="utf-8") as f:
     init_data = f.readlines()
-    start_init_data = init_data[:114]
-    init_data = init_data[114:]
+    start_init_data = init_data[:118]
+    init_data = init_data[118:]
 
 def update_index(currpath : Path):
     if currpath.is_dir():
         currindex = currpath / "index.html"
         if not currindex.exists():
             currindex.touch()
-        writing_data = ""
+        writing_data_dir = ""
+        writing_data_file = ""
         for childpath in currpath.iterdir():
             if not childpath.name.startswith(".") and childpath.name != "index.html":
                 if childpath.is_dir():
                     update_index(childpath)
-                    writing_data += f"        {childpath.name}/\n"
+                    writing_data_dir += f"        {childpath.name}/\n"
                 else:
-                    writing_data += f"        {childpath.name}\n"
+                    writing_data_file += f"        {childpath.name}\n"
         with open(currindex, "w", encoding="utf-8") as f:
             for i in start_init_data:
                 f.write(i)
-            f.write(writing_data)
+            f.write(writing_data_dir)
+            f.write(writing_data_file)
             for i in init_data:
                 f.write(i)
 
