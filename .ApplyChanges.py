@@ -12,8 +12,8 @@ if not (init_index := root_path / ".initindex").exists():
     sys.exit(0)
 with open(init_index, "r", encoding="utf-8") as f:
     init_data = f.readlines()
-    start_init_data = init_data[:107]
-    init_data = init_data[107:]
+    start_init_data = init_data[:114]
+    init_data = init_data[114:]
 
 def update_index(currpath : Path):
     if currpath.is_dir():
