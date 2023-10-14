@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiniCloudDisk</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body {
+            background-image: -webkit-linear-gradient(left bottom, #38438b, #944b94, #d75a88, #ff7e71, #ffb25f, #ffeb68);
+            background-image: -o-linear-gradient(left bottom, #38438b, #944b94, #d75a88, #ff7e71, #ffb25f, #ffeb68);
+            background-image: linear-gradient(to right top, #38438b, #944b94, #d75a88, #ff7e71, #ffb25f, #ffeb68);
+        }
+
+        #fpage {
+            user-select: none;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #title {
+            text-align: center;
+            width: 70vw;
+            line-height: 1em;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            direction: rtl;
+            height: 1em;
+            top: 4vh;
+            font-size: 5vh;
+            position: absolute;
+            content: attr(data-title);
+            color: white;
+        }
+
+        #box {
+            width: 75vw;
+            height: 75vh;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 5vh;
+            backdrop-filter: blur(50px);
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.3);
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            overflow: scroll;
+        }
+
+        #box::-webkit-scrollbar {
+            width: 0 !important;
+        }
+
+        #box a {
+            width: 70%;
+            filter: blur(1px);
+            color: rgba(255, 255, 255, 0.3);
+            text-decoration: none;
+            font-size: 5vh;
+            display: block;
+            transition: .3s;
+            cursor: default;
+        }
+
+        #box a::before {
+            pointer-events: none;
+            color: rgba(255, 255, 255, 0);
+            display: block;
+            margin-left: -1em;
+            position: absolute;
+            content: "> ";
+            text-shadow: none;
+            transition: .2s;
+        }
+
+        #box a:hover {
+            filter: none;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            padding-left: 50px;
+            color: aliceblue;
+        }
+
+        #box a:hover::before {
+            color: rgba(255, 255, 255, 1);
+            display: block;
+            margin-left: -1em;
+            position: absolute;
+            content: "> ";
+        }
+    </style>
+</head>
+
+<body>
+    <files>
+        example1.txt
+        example2.txt
+        example3.txt
+    </files>
+    <script>
+        let url = window.location.href
+        if (url.endsWith("index.html")) {
+            window.location.href = url.replace("index.html", "")
+        }
+        let title = url.split("/").slice(-2)[0]
+        document.title = title
+        let code = ""
+        code = `<div id="fpage"><div id="title">${window.location.pathname}</div><div id="box"><a href="javascript:history.back()">../</a>`
+        document.getElementsByTagName("files")[0].innerHTML.trim().split("\n").forEach(e => {
+            code = code + ((e = (e.trim())).trim().endsWith("/") ? `<a href="${url}${e}">${e}</a>` : `<a href="${url}${e}" download>${e}</a>`)
+        })
+        code = code + "</div></div>"
+        document.body.innerHTML = code
+    </script>
+</body>
+
+</html>
