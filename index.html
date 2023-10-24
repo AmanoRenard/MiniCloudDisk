@@ -129,10 +129,10 @@
         if (url.endsWith("index.html")) {
             window.location.href = url.replace("index.html", "")
         }
-        let title = url.split("/").slice(-2)[0]
+        let title = decodeURI(url.split("/").slice(-2)[0])
         document.title = title
         let code = ""
-        code = `<div id="fpage"><div id="title">${window.location.pathname}</div><div id="box"><a href="javascript:history.back()">../</a>`
+        code = `<div id="fpage"><div id="title">${decodeURI(window.location.pathname)}</div><div id="box"><a href="javascript:history.back()">../</a>`
         document.getElementsByTagName("files")[0].innerHTML.trim().split("\n").forEach(e => {
             code = code + ((e = (e.trim())).trim().endsWith("/") ? `<a href="${url}${e}">${e}</a>` : `<a href="${url}${e}" download>${e}</a>`)
         })
